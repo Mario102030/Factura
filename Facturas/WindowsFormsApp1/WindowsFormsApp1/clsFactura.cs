@@ -53,7 +53,9 @@ namespace WindowsFormsApp1
                     parte1 = par1.Remove(40, cort);           // si es mayor que 40 caracteres, lo corta
                 }
                 else { parte1 = par1; }                      // **********
+
                 max = 40 - par1.Length;                     // obtiene la cantidad de espacios para llegar a 40
+
                 for (int i = 0; i < max; i++)
                 {
                     ticket += " ";                          // agrega espacios para alinear a la derecha
@@ -124,7 +126,7 @@ namespace WindowsFormsApp1
 
             }
 
-            // se le pasan los Aticulos  con sus detalles
+            // se le pasan los Articulos  con sus detalles
             public void AgregaArticulo(string Articulo, double precio, int cant, double subtotal)
             {
                 if (cant.ToString().Length <= 3 && precio.ToString("c").Length <= 10 && subtotal.ToString("c").Length <= 11) // valida que cant precio y total esten dentro de rango
@@ -286,7 +288,7 @@ namespace WindowsFormsApp1
 
                 di.pDocName = "My C#.NET RAW Document";
                 di.pDataType = "RAW";
-                // di.pOutputFile = @"C:\Users\Roland\Documents\Visual Studio 2015\Projects\pjtVentas\Ventas";
+                // di.pOutputFile = @"C:\Users\Mario\Documents\Visual Studio 2022\Projects\pjtVentas\Ventas";
 
                 // Open the printer.
                 if (OpenPrinter(szPrinterName.Normalize(), out hPrinter, IntPtr.Zero))

@@ -33,10 +33,10 @@ namespace WindowsFormsApp1
             switch (ID)
             {
 
-                case 0: lblID.Text = "0001"; break;
-                case 1: lblID.Text = "0002"; break;
-                case 2: lblID.Text = "0003"; break;
-                case 3: lblID.Text = "0004"; break;
+                case 0: lblID.Text = "0001";  break;
+                case 1: lblID.Text = "0002";  break;
+                case 2: lblID.Text = "0003";  break;
+                case 3: lblID.Text = "0004";  break;
                 default: lblID.Text = "0005"; break;
 
             }
@@ -45,21 +45,21 @@ namespace WindowsFormsApp1
             {
 
                 case "Platano": lblNombre.Text = "Platano"; break;
-                case "Menta": lblNombre.Text = "Menta"; break;
-                case "Arroz": lblNombre.Text = "Arroz"; break;
-                case "Jugo": lblNombre.Text = "Jugo"; break;
-                default: lblNombre.Text = "Azucar"; break;
+                case "Menta": lblNombre.Text = "Menta";     break;
+                case "Arroz": lblNombre.Text = "Arroz";     break;
+                case "Jugo": lblNombre.Text = "Jugo";       break;
+                default: lblNombre.Text = "Azucar";         break;
 
             }
 
             switch(Precio)
             {
 
-                case 0: lblPrecio.Text = "15"; break;
-                case 1: lblPrecio.Text = "1"; break;
-                case 2: lblPrecio.Text = "150";break;
-                case 3: lblPrecio.Text = "2"; break;
-                default: lblPrecio.Text = "65"; break;
+                case 0: lblPrecio.Text = "15";   break;
+                case 1: lblPrecio.Text = "1";    break;
+                case 2: lblPrecio.Text = "150";  break;
+                case 3: lblPrecio.Text = "2";    break;
+                default: lblPrecio.Text = "65";  break;
 
             }
         }
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1
             DataGridViewRow Archivo = new DataGridViewRow(); //Usamos los label para agregarlos a la lista.
             Archivo.CreateCells(dgvLista);
 
-            //Creamos celdas para introducir los valores del label
+            //Creamos celdas para introducir los valores del label.
             Archivo.Cells[0].Value = lblID.Text;
             Archivo.Cells[1].Value = lblNombre.Text;
             Archivo.Cells[2].Value = lblPrecio.Text;
@@ -81,9 +81,9 @@ namespace WindowsFormsApp1
             }
             catch(System.FormatException)
             {
-                Console.WriteLine("A ocurrido un error");
-                Console.WriteLine("Reiniciando...");
-                InitializeComponent();
+                MessageBox.Show("A ocurrido un error");
+                MessageBox.Show("Reiniciando...");
+                //InitializeComponent();
             }
             dgvLista.Rows.Add(Archivo); //Agregamos a la tabla.
             lblID.Text = lblNombre.Text = lblPrecio.Text = txtCantidad.Text="";
@@ -91,6 +91,30 @@ namespace WindowsFormsApp1
             obtenerTotal(); //Llamamos al total para que se agregue con el boton de agregar.
 
         }
+
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            //Configuramos el boton borrar, para que elimine productos y reduzca el total a pagar.
+            try
+            {
+
+                DialogResult borrar = MessageBox.Show("Desea eliminar este articulo?",
+                "Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if(borrar == DialogResult.Yes)
+                {
+                    dgvLista.Rows.Remove(dgvLista.CurrentRow);
+                }
+
+            }
+            catch
+            { 
+
+            }
+            obtenerTotal(); //Llamamos al total para que se REDUZCA el total cuando se borre un elemento.
+        }
+
 
         public void obtenerTotal()
         {
@@ -111,26 +135,7 @@ namespace WindowsFormsApp1
 
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                DialogResult borrar = MessageBox.Show("Desea eliminar este articulo?",
-                    "Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if(borrar == DialogResult.Yes)
-                {
-                    dgvLista.Rows.Remove(dgvLista.CurrentRow);
-                }
-
-            }
-            catch
-            { 
-
-            }
-            obtenerTotal();
-        }
+        
        private void txtEfectivo_TextChanged(object sender, EventArgs e)
         {
 
@@ -146,7 +151,7 @@ namespace WindowsFormsApp1
 
             clsFactura.CreaTicket Ticket1 = new clsFactura.CreaTicket();
 
-            Ticket1.TextoCentro("Empresa xxxxx "); //imprime una linea de descripcion
+            Ticket1.TextoCentro("Empresa UwU "); //imprime una linea de descripcion
             Ticket1.TextoCentro("**********************************");
 
             Ticket1.TextoIzquierda("Dirc: xxxx");
@@ -156,7 +161,7 @@ namespace WindowsFormsApp1
             Ticket1.TextoCentro("Factura de Venta"); //imprime una linea de descripcion
             Ticket1.TextoIzquierda("No Fac: 002156");
             Ticket1.TextoIzquierda("Fecha:" + DateTime.Now.ToShortDateString() + " Hora:" + DateTime.Now.ToShortTimeString());
-            Ticket1.TextoIzquierda("Le Atendio: xxxx");
+            Ticket1.TextoIzquierda("Le Atendio: Mario");
             Ticket1.TextoIzquierda("");
            clsFactura.CreaTicket.LineasGuion();
 
@@ -164,7 +169,7 @@ namespace WindowsFormsApp1
             clsFactura.CreaTicket.LineasGuion();
             foreach (DataGridViewRow r in dgvLista.Rows)
             {
-                // PROD                     //PrECIO                                    CANT                         TOTAL
+               // NOMBRE                                  PRECIO                                    CANTIDAD                                 TOTAL
                 Ticket1.AgregaArticulo(r.Cells[1].Value.ToString(), double.Parse(r.Cells[2].Value.ToString()), int.Parse(r.Cells[3].Value.ToString()), double.Parse(r.Cells[4].Value.ToString())); //imprime una linea de descripcion
             }
 
